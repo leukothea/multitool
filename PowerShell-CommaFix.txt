@@ -1,0 +1,12 @@
+#fix an extra comma that is breaking Power Query's ability to import a csv file
+
+$files = Get-ChildItem -Path "<PATH GOES HERE>" -Recurse
+ 
+foreach ($file in $files){
+ 
+$find = "Manager, Nutrition"
+$replace = "Manager Nutrition"
+$content = Get-Content $($file.FullName) -Raw
+#write replaced content back to the file
+$content -replace $find,$replace | Out-File $($file.FullName) 
+}
